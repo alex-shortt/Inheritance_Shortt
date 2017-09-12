@@ -5,18 +5,13 @@ public class Inheritance_Shortt {
     public static void main(String args[]){
         ArrayList<Person> people = new ArrayList<Person>();
 
-        Person student1 = new Student("Alex", "Shortt", "BCP");
+        Person student1 = new BCPStudent("Man", "Manlyman");
         people.add(student1);
-        Person student2 = new Student("Alex", "Shortt", "BCP");
+        Person student2 = new NDStudent("Girl", "Girlygril");
         people.add(student2);
-        Person teacher1 = new Teacher("Alex", "Shortt", "BCP");
+        Person teacher1 = new BCPTeacher("Teacher", "McTeacherFace");
         people.add(teacher1);
-
-        Person student3 = new Student("Alex", "Shortt", "BCP");
-        people.add(student3);
-        Person student4 = new Student("Alex", "Shortt", "BCP");
-        people.add(student4);
-        Person teacher2 = new Teacher("Alex", "Shortt", "BCP");
+        Person teacher2 = new NDTeacher("TeacherAt", "GirlSchool");
         people.add(teacher2);
 
         for(Person person : people){
@@ -26,10 +21,10 @@ public class Inheritance_Shortt {
 }
 
 abstract class Person{
-    private String id;
-    private String fName;
-    private String lName;
-    private String greeting;
+    protected String id;
+    protected String fName;
+    protected String lName;
+    protected String greeting;
 
     public Person(String firstName, String lastName){
         id = UUID.randomUUID().toString();
@@ -39,34 +34,78 @@ abstract class Person{
 
     public void setGreeting(String greet){
         greeting = greet;
+    };
+
+    abstract void greet();
+}
+
+abstract class Student extends Person{
+    public Student(String firstName, String lastName){
+        super(firstName, lastName);
+        greeting = "Hi, I'm " + fName + " " + lName + ". ";
+
+    }
+
+    protected void greet(){
+        System.out.print(greeting);
+    }
+}
+
+class BCPStudent extends Student{
+    public BCPStudent(String firstName, String lastName){
+        super(firstName, lastName);
+        System.out.println("BCP Student Born.");
     }
 
     public void greet(){
-        System.out.println(greeting);
-    }
-}
-
-class Student extends Person{
-    private String school;
-
-    public Student(String firstName, String lastName, String thisSchool){
-        super(firstName, lastName);
-        school = thisSchool;
-        System.out.println(school + " Student born.");
-    }
-}
-
-class Teacher extends Person{
-    private String school;
-
-    public Teacher(String firstName, String lastName, String thisSchool){
-        super(firstName, lastName);
-        school = thisSchool;
-        System.out.println(school + " Teacher born.");
-    }
-
-    @Override
-    public void greet() {
         super.greet();
+        System.out.println("I'm a student at BCP.");
+    }
+}
+
+class NDStudent extends Student{
+    public NDStudent(String firstName, String lastName){
+        super(firstName, lastName);
+        System.out.println("ND Student Born.");
+    }
+
+    public void greet(){
+        super.greet();
+        System.out.println("I'm a student at ND.");
+    }
+}
+
+abstract class Teacher extends Person{
+    public Teacher(String firstName, String lastName){
+        super(firstName, lastName);
+        greeting = "Hi, I'm " + fName + " " + lName + ". ";
+    }
+
+    protected void greet(){
+        System.out.print(greeting);
+    }
+}
+
+class BCPTeacher extends Teacher{
+    public BCPTeacher(String firstName, String lastName){
+        super(firstName, lastName);
+        System.out.println("BCP Teacher Born.");
+    }
+
+    public void greet(){
+        super.greet();
+        System.out.println("I'm a teacher at BCP.");
+    }
+}
+
+class NDTeacher extends Teacher{
+    public NDTeacher(String firstName, String lastName){
+        super(firstName, lastName);
+        System.out.println("ND Teacher Born.");
+    }
+
+    public void greet(){
+        super.greet();
+        System.out.println("I'm a teacher at ND.");
     }
 }
